@@ -10,15 +10,9 @@ public class ExceptionManager {
 
     @ExceptionHandler(AppException.class)
     public ResponseEntity<?> AppExceptionHandler(AppException e){
-        Response response = Response.builder()
-                .resultCode(e.getErrorCode().name())
-                .result(ErrorResponse.builder()
-                        .errorCode(e.getErrorCode())
-                        .message(e.getMessage())
-                        .build()
-                ).build();
+
         return ResponseEntity.status(e.getErrorCode().getStatus())
-                .body(response);
+                .body(Response.error(new ErrorResponse(e.getErrorCode().name(), e.getMessage())));
     }
 
 
