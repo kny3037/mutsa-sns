@@ -2,10 +2,12 @@ package com.mutsasnskimnayeong.service;
 
 import com.mutsasnskimnayeong.domain.dto.UserDto;
 import com.mutsasnskimnayeong.domain.dto.UserJoinRequest;
+import com.mutsasnskimnayeong.domain.dto.UserLoginRequest;
 import com.mutsasnskimnayeong.domain.entity.User;
 import com.mutsasnskimnayeong.exceptions.AppException;
 import com.mutsasnskimnayeong.exceptions.ErrorCode;
 import com.mutsasnskimnayeong.repository.UserRepository;
+import com.mutsasnskimnayeong.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,4 +37,17 @@ public class UserService {
                 .role(user.getRole())
                 .build();
     }
+
+    public String login(UserLoginRequest loginRequest){
+        User user = userRepository.findByUserName(loginRequest.getUserName())
+                .orElseThrow(()->new AppException(ErrorCode.USERNAME_NOT_FOUND,""));
+
+        if (!encoder.matches(loginRequest.getPassword(), user.getPassword())){
+            throw new AppException(ErrorCode.INVALID_PASSWORD, ErrorCode.INVALID_PASSWORD.getMessage());
+        }
+
+        return JwtTokenUtil.createToken(loginRequest.getUserName(),secretKey, expiredTimeMs);
+
+    }
+
 }

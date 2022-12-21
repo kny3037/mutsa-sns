@@ -1,8 +1,6 @@
 package com.mutsasnskimnayeong.controller;
 
-import com.mutsasnskimnayeong.domain.dto.UserDto;
-import com.mutsasnskimnayeong.domain.dto.UserJoinRequest;
-import com.mutsasnskimnayeong.domain.dto.UserJoinResponse;
+import com.mutsasnskimnayeong.domain.dto.*;
 import com.mutsasnskimnayeong.domain.response.Response;
 import com.mutsasnskimnayeong.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -22,5 +20,11 @@ public class UserController {
     public Response<UserJoinResponse> join(@RequestBody UserJoinRequest joinRequest){
         UserDto userDto = userService.join(joinRequest);
         return Response.success(new UserJoinResponse(userDto.getId(), userDto.getUserName()));
+    }
+
+    @PostMapping("/login")
+    public Response<UserLoginResponse> login(@RequestBody UserLoginRequest loginRequest){
+        String token = userService.login(loginRequest);
+        return Response.success(new UserLoginResponse(token));
     }
 }
