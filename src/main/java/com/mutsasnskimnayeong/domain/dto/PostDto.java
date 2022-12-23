@@ -1,27 +1,26 @@
-package com.mutsasnskimnayeong.domain.entity;
+package com.mutsasnskimnayeong.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Getter
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post{
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PostDto {
     private Integer id;
+    private String userName;
     private String title;
     private String body;
+/*
+    private LocalDateTime createAt;
+    private LocalDateTime lastModifiedAt;
+*/
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+
 
 }
