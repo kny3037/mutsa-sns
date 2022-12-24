@@ -1,13 +1,11 @@
 package com.mutsasnskimnayeong.domain.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -24,4 +22,8 @@ public class Post extends BaseEntity{
     @JoinColumn(name = "user_id")
     private User user;
 
+    public void update(String title, String body){
+        this.title = title;
+        this.body = body;
+    }
 }
