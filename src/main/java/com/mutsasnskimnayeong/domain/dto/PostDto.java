@@ -1,6 +1,7 @@
 package com.mutsasnskimnayeong.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.mutsasnskimnayeong.domain.entity.Post;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +25,18 @@ public class PostDto {
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime lastModifiedAt;
+
+    public static PostDto toEntity(Post post){
+        return PostDto.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .body(post.getBody())
+                .userName(post.getUser().getUserName())
+                .createAt(post.getCreatedAt())
+                .lastModifiedAt(post.getLastModifiedAt())
+                .build();
+    }
+
 
 }
 

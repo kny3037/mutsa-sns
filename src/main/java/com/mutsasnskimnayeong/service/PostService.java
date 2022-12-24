@@ -2,6 +2,7 @@ package com.mutsasnskimnayeong.service;
 
 import com.mutsasnskimnayeong.domain.dto.PostCreateRequest;
 import com.mutsasnskimnayeong.domain.dto.PostDto;
+import com.mutsasnskimnayeong.domain.dto.PostUpdateRequest;
 import com.mutsasnskimnayeong.domain.entity.Post;
 import com.mutsasnskimnayeong.domain.entity.User;
 import com.mutsasnskimnayeong.exceptions.AppException;
@@ -9,8 +10,11 @@ import com.mutsasnskimnayeong.exceptions.ErrorCode;
 import com.mutsasnskimnayeong.repository.PostRepository;
 import com.mutsasnskimnayeong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -53,6 +57,40 @@ public class PostService {
                 .createAt(post.getCreatedAt())
                 .lastModifiedAt(post.getLastModifiedAt())
                 .build();
+    }
+
+    public Integer update(Integer id, PostUpdateRequest updateRequest, String userName){
+
+        Post post = postRepository.findById(id)
+                .orElseThrow(()-> new AppException(ErrorCode.POST_NOT_FOUND,""));
+
+        User user = userRepository.findByUserName(userName)
+                .orElseThrow(()-> new AppException(ErrorCode.USERNAME_NOT_FOUND,""));
+
+        if (post.getUser().getUserName() != user.getUserName()){
+            throw new AppException(ErrorCode.INVALID_PERMISSION, "");
+        }
+
+        post.update(updateRequest.getTitle(), updateRequest.getBody());
+        postRepository.save(post);
+
+        return id;
+    }
+
+    public Integer delete(Integer id, String userName){
+        Post post = postRepository.findById(id)
+                .orElseThrow(()-> new AppException(ErrorCode.POST_NOT_FOUND,""));
+
+        User user = userRepository.findByUserName(userName)
+                .orElseThrow(()-> new AppException(ErrorCode.USERNAME_NOT_FOUND,""));
+
+        if (post.getUser().getUserName() != user.getUserName()){
+            throw new AppException(ErrorCode.INVALID_PERMISSION, "");
+        }
+
+        postRepository.deleteById(id);
+
+        return id;
     }
 
 }

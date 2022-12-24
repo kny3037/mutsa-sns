@@ -1,8 +1,6 @@
 package com.mutsasnskimnayeong.controller;
 
-import com.mutsasnskimnayeong.domain.dto.PostCreateRequest;
-import com.mutsasnskimnayeong.domain.dto.PostCreateResponse;
-import com.mutsasnskimnayeong.domain.dto.PostDto;
+import com.mutsasnskimnayeong.domain.dto.*;
 import com.mutsasnskimnayeong.domain.entity.Post;
 import com.mutsasnskimnayeong.domain.response.Response;
 import com.mutsasnskimnayeong.service.PostService;
@@ -31,4 +29,21 @@ public class PostController {
         PostDto postDto = postService.detail(postId);
         return Response.success(postDto);
     }
+
+    @PutMapping("/{postId}")
+    public Response<PostUpdateResponse> update(@PathVariable Integer postId, PostUpdateRequest updateRequest, @ApiIgnore Authentication authentication){
+        String userName = authentication.getName();
+        Integer updatePost = postService.update(postId, updateRequest, userName);
+
+        return Response.success(new PostUpdateResponse("포스트 수정 완료", updatePost));
+    }
+
+    @DeleteMapping("/{postId}")
+    public Response<PostDeleteResponse> delete(@PathVariable Integer postId, @ApiIgnore Authentication authentication){
+        String userName = authentication.getName();
+        Integer deletePost = postService.delete(postId, userName);
+
+        return Response.success(new PostDeleteResponse("포스트 삭제 완료", deletePost));
+    }
+
 }
