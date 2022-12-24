@@ -40,9 +40,19 @@ public class PostService {
                 .build();
     }
 
-    /*public PostDto detail(Integer id){
-        Optional<Post> optionalPost = postRepository.findById(id);
+    public PostDto detail(Integer id){
 
-    }*/
+        Post post = postRepository.findById(id)
+                .orElseThrow(()->new AppException(ErrorCode.POST_NOT_FOUND,""));
+
+        return PostDto.builder()
+                .id(post.getId())
+                .title(post.getTitle())
+                .body(post.getBody())
+                .userName(post.getUser().getUserName())
+                .createAt(post.getCreatedAt())
+                .lastModifiedAt(post.getLastModifiedAt())
+                .build();
+    }
 
 }
