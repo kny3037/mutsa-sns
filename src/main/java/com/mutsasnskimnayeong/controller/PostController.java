@@ -5,7 +5,12 @@ import com.mutsasnskimnayeong.domain.entity.Post;
 import com.mutsasnskimnayeong.domain.response.Response;
 import com.mutsasnskimnayeong.service.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -46,4 +51,9 @@ public class PostController {
         return Response.success(new PostDeleteResponse("포스트 삭제 완료", deletePost));
     }
 
+    @GetMapping
+    public Response<Page<PostDto>> postList(Model model, @PageableDefault(sort = "createdAt", size = 20, direction = Sort.Direction.DESC) Pageable pageable){
+        Page<PostDto> postDtoPage = postService.postList(pageable);
+        return Response.success(postDtoPage);
+    }
 }

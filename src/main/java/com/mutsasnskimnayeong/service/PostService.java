@@ -14,7 +14,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -59,6 +62,7 @@ public class PostService {
                 .build();
     }
 
+    @Transactional
     public Integer update(Integer id, PostUpdateRequest updateRequest, String userName){
 
         Post post = postRepository.findById(id)
@@ -77,6 +81,7 @@ public class PostService {
         return id;
     }
 
+    @Transactional
     public Integer delete(Integer id, String userName){
         Post post = postRepository.findById(id)
                 .orElseThrow(()-> new AppException(ErrorCode.POST_NOT_FOUND,""));
@@ -92,5 +97,16 @@ public class PostService {
 
         return id;
     }
+
+    public Page<PostDto> postList(Pageable pageable){
+        Page<Post> posts = postRepository.findAll(pageable);
+        Page<PostDto> postDtos = PostDto.postDto(posts);
+        return postDtos;
+
+    }
+
+
+
+
 
 }
