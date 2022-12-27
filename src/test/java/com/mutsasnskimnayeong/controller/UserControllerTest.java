@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
@@ -28,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
+@MockBean(JpaMetamodelMappingContext.class)
 class UserControllerTest {
 
     @Autowired
@@ -52,9 +54,9 @@ class UserControllerTest {
         when(userService.join(any())).thenReturn(mock(UserDto.class));
 
         mockMvc.perform(post("/api/v1/users/join")
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(joinRequest)))
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(joinRequest)))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
@@ -73,9 +75,9 @@ class UserControllerTest {
 
 
         mockMvc.perform(post("/api/v1/users/join")
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(joinRequest)))
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(joinRequest)))
                 .andDo(print())
                 .andExpect(status().is(ErrorCode.DUPLICATED_USER_NAME.getStatus().value()));
     }
@@ -93,9 +95,9 @@ class UserControllerTest {
         when(userService.login(any())).thenReturn("token");
 
         mockMvc.perform(post("/api/v1/users/login")
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(loginRequest)))
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(loginRequest)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.resultCode").exists())
@@ -116,9 +118,9 @@ class UserControllerTest {
         when(userService.login(any())).thenThrow(new AppException(ErrorCode.USERNAME_NOT_FOUND, ErrorCode.USERNAME_NOT_FOUND.getMessage()));
 
         mockMvc.perform(post("/api/v1/users/login")
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(objectMapper.writeValueAsBytes(loginRequest)))
+                        .with(csrf())
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsBytes(loginRequest)))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
