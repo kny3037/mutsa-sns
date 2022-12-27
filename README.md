@@ -43,7 +43,7 @@ Spring Security와 JWT를 사용하여 구현하며 로그인 성공 시 `token`
     </ul>
 </li>
 
-<li>글 상세 (Get /api/v1/posts)
+<li>글 상세 (Get /api/v1/posts/{postId})
 <blockquote>
     회원, 비회원 모두 볼 수 있고 글의 제목, 내용, 글쓴이, 작성날짜, 마지막 수정날짜가 표시된다.
 </blockquote>
@@ -61,7 +61,7 @@ Spring Security와 JWT를 사용하여 구현하며 로그인 성공 시 `token`
     </ul>
 </li>
 
-<li>글 삭제 (Delete /api/v1/posts)
+<li>글 삭제 (Delete /api/v1/posts/{postId})
 <blockquote>
     ADMIN회원이나 글을 작성한 일반회원이 글에 대한 삭제를 할 수 있다. 
 </blockquote>
@@ -70,7 +70,7 @@ Spring Security와 JWT를 사용하여 구현하며 로그인 성공 시 `token`
     </ul>
 </li>
 
-<li>글 리스트 (Get /api/v1/posts/{postId})
+<li>글 리스트 (Get /api/v1/posts)
 <blockquote>
     1. 회원, 비회원 모두 볼 수 있으며 제목, 글쓴이, 마지막 수정날짜가 표시된다.<br>
     2. 목록 기능은 페이징 기능이 포함된다. (Pageable 사용) 한 페이지당 default 피드 갯수가 20개.
@@ -79,7 +79,14 @@ Spring Security와 JWT를 사용하여 구현하며 로그인 성공 시 `token`
         http://ec2-52-78-186-104.ap-northeast-2.compute.amazonaws.com:8081/swagger-ui/api/v1/posts/1
     </ul>
 </li>
+
 <br>
+<h5>📑ERD</h5>
+<hr>
+
+![ERD](https://user-images.githubusercontent.com/90165539/209635986-1ed4b870-51fc-4405-90f6-8341120149b9.PNG)
+
+
 <br>
 <h5>✅체크 리스트</h5>
 <hr>
