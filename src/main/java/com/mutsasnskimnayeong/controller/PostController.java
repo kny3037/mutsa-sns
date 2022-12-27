@@ -52,7 +52,7 @@ public class PostController {
     }
 
     @GetMapping
-    public Response<Page<PostDto>> postList(Model model, @PageableDefault(sort = "createdAt", size = 20, direction = Sort.Direction.DESC) Pageable pageable){
+    public Response<Page<PostDto>> postList(@PageableDefault(sort = "createdAt", size = 20, direction = Sort.Direction.DESC) Pageable pageable){
         Page<PostDto> postDtoPage = postService.postList(pageable);
         return Response.success(postDtoPage);
     }

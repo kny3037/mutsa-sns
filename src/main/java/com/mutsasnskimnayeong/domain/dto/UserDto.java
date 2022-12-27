@@ -14,10 +14,5 @@ public class UserDto {
     private String userName;
     private String password;
     private UserRole role;
-/*
-    public UserJoinResponse toResponse() {
-        return new UserJoinResponse(this.id, this.userName);
-    }*/
-
 
 }
