@@ -1,5 +1,6 @@
 package com.mutsasnskimnayeong.domain.entity;
 
+import com.mutsasnskimnayeong.domain.dto.PostDto;
 import lombok.*;
 
 import javax.persistence.*;
