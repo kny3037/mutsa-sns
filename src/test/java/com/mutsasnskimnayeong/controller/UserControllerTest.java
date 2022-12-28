@@ -7,6 +7,8 @@ import com.mutsasnskimnayeong.domain.dto.UserLoginRequest;
 import com.mutsasnskimnayeong.exceptions.AppException;
 import com.mutsasnskimnayeong.exceptions.ErrorCode;
 import com.mutsasnskimnayeong.service.UserService;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,15 +43,25 @@ class UserControllerTest {
     @MockBean
     UserService userService;
 
+    UserJoinRequest joinRequest;
+    UserLoginRequest loginRequest;
+    @BeforeEach
+    void setUp(){
+        joinRequest = UserJoinRequest.builder()
+                .userName("testuser")
+                .password("1111")
+                .build();
+
+        loginRequest = UserLoginRequest.builder()
+                .userName("testuser")
+                .password("1111")
+                .build();
+    }
+
     @Test
     @DisplayName("회원가입 성공")
     @WithMockUser
     void join_success() throws Exception{
-
-        UserJoinRequest joinRequest = UserJoinRequest.builder()
-                .userName("testuser")
-                .password("1111")
-                .build();
 
         when(userService.join(any())).thenReturn(mock(UserDto.class));
 
@@ -66,11 +78,6 @@ class UserControllerTest {
     @WithMockUser
     void join_fail() throws Exception{
 
-        UserJoinRequest joinRequest = UserJoinRequest.builder()
-                .userName("testuser")
-                .password("1111")
-                .build();
-
         when(userService.join(any())).thenThrow(new AppException(ErrorCode.DUPLICATED_USER_NAME,""));
 
 
@@ -79,18 +86,13 @@ class UserControllerTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(joinRequest)))
                 .andDo(print())
-                .andExpect(status().is(ErrorCode.DUPLICATED_USER_NAME.getStatus().value()));
+                .andExpect(status().isConflict());
     }
 
     @Test
     @DisplayName("로그인 성공")
     @WithMockUser
     void login_success() throws Exception{
-
-        UserLoginRequest loginRequest = UserLoginRequest.builder()
-                .userName("testuser")
-                .password("1111")
-                .build();
 
         when(userService.login(any())).thenReturn("token");
 
@@ -110,11 +112,6 @@ class UserControllerTest {
     @WithMockUser
     void login_fail() throws Exception{
 
-        UserLoginRequest loginRequest = UserLoginRequest.builder()
-                .userName("testuser")
-                .password("1111")
-                .build();
-
         when(userService.login(any())).thenThrow(new AppException(ErrorCode.USERNAME_NOT_FOUND, ErrorCode.USERNAME_NOT_FOUND.getMessage()));
 
         mockMvc.perform(post("/api/v1/users/login")
@@ -130,13 +127,7 @@ class UserControllerTest {
     @WithMockUser
     void login_fail2() throws Exception{
 
-        UserLoginRequest loginRequest = UserLoginRequest.builder()
-                .userName("testuser")
-                .password("1111")
-                .build();
-
         when(userService.login(any())).thenThrow(new AppException(ErrorCode.INVALID_PASSWORD, ""));
-
 
         mockMvc.perform(post("/api/v1/users/login")
                         .with(csrf())

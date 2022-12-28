@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -40,7 +39,7 @@ public class UserService {
 
     public String login(UserLoginRequest loginRequest){
         User user = userRepository.findByUserName(loginRequest.getUserName())
-                .orElseThrow(()->new AppException(ErrorCode.USERNAME_NOT_FOUND,""));
+                .orElseThrow(()->new AppException(ErrorCode.USERNAME_NOT_FOUND,ErrorCode.USERNAME_NOT_FOUND.getMessage()));
 
         if (!encoder.matches(loginRequest.getPassword(), user.getPassword())){
             throw new AppException(ErrorCode.INVALID_PASSWORD, ErrorCode.INVALID_PASSWORD.getMessage());

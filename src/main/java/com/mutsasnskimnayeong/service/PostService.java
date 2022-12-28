@@ -15,10 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,13 +28,7 @@ public class PostService {
         User user = userRepository.findByUserName(userName)
                 .orElseThrow(()->new AppException(ErrorCode.USERNAME_NOT_FOUND,""));
 
-        Post post = Post.builder()
-                .user(user)
-                .title(createRequest.getTitle())
-                .body(createRequest.getBody())
-                .build();
-
-        postRepository.save(post);
+        Post post = postRepository.save(createRequest.toEntity(user));
 
         return PostDto.builder()
                 .id(post.getId())
@@ -62,6 +52,7 @@ public class PostService {
                 .build();
     }
 
+
     @Transactional
     public Integer update(Integer id, PostUpdateRequest updateRequest, String userName){
 
@@ -83,12 +74,12 @@ public class PostService {
 
     @Transactional
     public Integer delete(Integer id, String userName){
+
         Post post = postRepository.findById(id)
-                .orElseThrow(()-> new AppException(ErrorCode.POST_NOT_FOUND,""));
+                .orElseThrow(()-> new AppException(ErrorCode.POST_NOT_FOUND, ""));
 
         User user = userRepository.findByUserName(userName)
-                .orElseThrow(()-> new AppException(ErrorCode.USERNAME_NOT_FOUND,""));
-
+                .orElseThrow(()-> new AppException(ErrorCode.USERNAME_NOT_FOUND, ""));
         if (post.getUser().getUserName() != user.getUserName()){
             throw new AppException(ErrorCode.INVALID_PERMISSION, "");
         }
@@ -102,7 +93,6 @@ public class PostService {
         Page<Post> posts = postRepository.findAll(pageable);
         Page<PostDto> postDtos = PostDto.postDto(posts);
         return postDtos;
-
     }
 
 }
