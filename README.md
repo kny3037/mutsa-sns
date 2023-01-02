@@ -91,11 +91,11 @@ Spring Security와 JWT를 사용하여 구현하며 로그인 성공 시 `token`
 <h5>✅체크 리스트</h5>
 <hr>
 <form method="POST">
-      <p><label><input type="checkbox" value="01">AWS EC2 Docker 배포</label></p>
-      <p><label><input type="checkbox" value="02"> Swagger 사용 </label></p>
-      <p><label><input type="checkbox" value="03">Gitlab CI/CD 적용</label></p>
-      <p><label><input type="checkbox" value="04">1주차 기능 코드 작성</label></p>
-      <p><label><input type="checkbox" value="05">1주차 기능 테스트 코드 작성</label></p>
+      <p><input type="checkbox" value="01">AWS EC2 Docker 배포</p>
+      <p><input type="checkbox" value="02"> Swagger 사용 </p>
+      <p><input type="checkbox" value="03">Gitlab CI/CD 적용</p>
+      <p><input type="checkbox" value="04">1주차 기능 코드 작성</p>
+      <p><input type="checkbox" value="05">1주차 기능 테스트 코드 작성</p>
     </form>
 <br>
 <br>
