@@ -1,14 +1,16 @@
 package com.mutsasnskimnayeong.domain.entity;
 
+import com.mutsasnskimnayeong.domain.dto.comment.CommentDto;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Getter
 @Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Comment extends BaseEntity{
@@ -18,13 +20,23 @@ public class Comment extends BaseEntity{
     private Integer id;
 
     @ManyToOne
-    private User userid;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
-    private Post postid;
+    @JoinColumn(name = "post_id")
+    private Post post;
 
     private String comment;
-    private LocalDateTime deletedAt;
 
+    public CommentDto dto(){
+        return CommentDto.builder()
+                .id(this.id)
+                .comment(this.comment)
+                .post(this.post)
+                .user(this.user)
+                .createAt(this.getCreatedAt())
+                .build();
+    }
 
 }
