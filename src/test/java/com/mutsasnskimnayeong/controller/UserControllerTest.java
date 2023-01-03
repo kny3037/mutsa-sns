@@ -1,13 +1,12 @@
 package com.mutsasnskimnayeong.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mutsasnskimnayeong.domain.dto.UserDto;
-import com.mutsasnskimnayeong.domain.dto.UserJoinRequest;
-import com.mutsasnskimnayeong.domain.dto.UserLoginRequest;
+import com.mutsasnskimnayeong.domain.dto.user.UserDto;
+import com.mutsasnskimnayeong.domain.dto.user.UserJoinRequest;
+import com.mutsasnskimnayeong.domain.dto.user.UserLoginRequest;
 import com.mutsasnskimnayeong.exceptions.AppException;
 import com.mutsasnskimnayeong.exceptions.ErrorCode;
 import com.mutsasnskimnayeong.service.UserService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,6 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;

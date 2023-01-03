@@ -1,4 +1,4 @@
-package com.mutsasnskimnayeong.domain.dto;
+package com.mutsasnskimnayeong.domain.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

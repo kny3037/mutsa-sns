@@ -1,7 +1,6 @@
 package com.mutsasnskimnayeong.domain.entity;
 
 import com.mutsasnskimnayeong.domain.UserRole;
-import com.mutsasnskimnayeong.domain.dto.UserDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

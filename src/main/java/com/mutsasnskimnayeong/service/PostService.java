@@ -1,8 +1,8 @@
 package com.mutsasnskimnayeong.service;
 
-import com.mutsasnskimnayeong.domain.dto.PostCreateRequest;
-import com.mutsasnskimnayeong.domain.dto.PostDto;
-import com.mutsasnskimnayeong.domain.dto.PostUpdateRequest;
+import com.mutsasnskimnayeong.domain.dto.post.PostCreateRequest;
+import com.mutsasnskimnayeong.domain.dto.post.PostDto;
+import com.mutsasnskimnayeong.domain.dto.post.PostUpdateRequest;
 import com.mutsasnskimnayeong.domain.entity.Post;
 import com.mutsasnskimnayeong.domain.entity.User;
 import com.mutsasnskimnayeong.exceptions.AppException;
