@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class AlgorithmService {
 
-    public Integer SumOfDigit(Integer num){
+    public Integer sumOfDigit(Integer num){
 
         int sum = 0;
 

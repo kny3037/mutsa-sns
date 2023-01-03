@@ -21,6 +21,6 @@ public class HelloController {
 
     @GetMapping("/hello/{num}")
     public Integer sum(@PathVariable Integer num){
-        return algorithmService.SumOfDigit(num);
+        return algorithmService.sumOfDigit(num);
     }
 }
