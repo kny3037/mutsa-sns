@@ -1,8 +1,8 @@
 package com.mutsasnskimnayeong.service;
 
-import com.mutsasnskimnayeong.domain.dto.UserDto;
-import com.mutsasnskimnayeong.domain.dto.UserJoinRequest;
-import com.mutsasnskimnayeong.domain.dto.UserLoginRequest;
+import com.mutsasnskimnayeong.domain.dto.user.UserDto;
+import com.mutsasnskimnayeong.domain.dto.user.UserJoinRequest;
+import com.mutsasnskimnayeong.domain.dto.user.UserLoginRequest;
 import com.mutsasnskimnayeong.domain.entity.User;
 import com.mutsasnskimnayeong.exceptions.AppException;
 import com.mutsasnskimnayeong.exceptions.ErrorCode;

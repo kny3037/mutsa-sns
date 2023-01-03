@@ -1,4 +1,4 @@
-package com.mutsasnskimnayeong.domain.dto;
+package com.mutsasnskimnayeong.domain.dto.post;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

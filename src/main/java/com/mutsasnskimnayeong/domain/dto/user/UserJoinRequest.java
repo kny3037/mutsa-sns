@@ -1,4 +1,4 @@
-package com.mutsasnskimnayeong.domain.dto;
+package com.mutsasnskimnayeong.domain.dto.user;
 
 import com.mutsasnskimnayeong.domain.entity.User;
 import com.mutsasnskimnayeong.domain.UserRole;

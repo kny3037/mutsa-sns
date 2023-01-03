@@ -1,8 +1,9 @@
 package com.mutsasnskimnayeong.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mutsasnskimnayeong.domain.dto.*;
+import com.mutsasnskimnayeong.domain.dto.post.PostCreateRequest;
+import com.mutsasnskimnayeong.domain.dto.post.PostDto;
+import com.mutsasnskimnayeong.domain.dto.post.PostUpdateRequest;
 import com.mutsasnskimnayeong.domain.entity.Post;
 import com.mutsasnskimnayeong.exceptions.AppException;
 import com.mutsasnskimnayeong.exceptions.ErrorCode;

@@ -1,4 +1,4 @@
-package com.mutsasnskimnayeong.domain.dto;
+package com.mutsasnskimnayeong.domain.dto.post;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.mutsasnskimnayeong.domain.entity.Post;
@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 
-import javax.persistence.PrePersist;
 import java.time.LocalDateTime;
 
 @Getter

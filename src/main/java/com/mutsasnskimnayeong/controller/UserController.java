@@ -1,6 +1,6 @@
 package com.mutsasnskimnayeong.controller;
 
-import com.mutsasnskimnayeong.domain.dto.*;
+import com.mutsasnskimnayeong.domain.dto.user.*;
 import com.mutsasnskimnayeong.domain.response.Response;
 import com.mutsasnskimnayeong.service.UserService;
 import lombok.RequiredArgsConstructor;
