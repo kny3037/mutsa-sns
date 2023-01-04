@@ -1,7 +1,7 @@
 package com.mutsasnskimnayeong.controller;
 
-import com.mutsasnskimnayeong.domain.dto.comment.CommentCreateRequest;
-import com.mutsasnskimnayeong.domain.dto.comment.CommentCreateResponse;
+import com.mutsasnskimnayeong.domain.dto.comment.CommentRequest;
+import com.mutsasnskimnayeong.domain.dto.comment.CommentResponse;
 import com.mutsasnskimnayeong.domain.dto.comment.CommentDto;
 import com.mutsasnskimnayeong.domain.response.Response;
 import com.mutsasnskimnayeong.service.CommentService;
@@ -18,10 +18,21 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping("/{postId}/comments")
-    public Response<CommentCreateResponse> create(@PathVariable Integer postId, @RequestBody CommentCreateRequest createRequest, @ApiIgnore Authentication authentication){
+    public Response<CommentResponse> create(@PathVariable Integer postId, @RequestBody CommentRequest createRequest, @ApiIgnore Authentication authentication){
         String userName = authentication.getName();
         CommentDto commentDto = commentService.create(postId,userName,createRequest);
 
         return Response.success(commentDto.response());
     }
+
+    @PutMapping("/{postId}/comments/{id}")
+    public Response<CommentResponse> update(@PathVariable Integer postId, @PathVariable Integer id, @RequestBody CommentRequest createRequest, @ApiIgnore Authentication authentication){
+        String userName = authentication.getName();
+        CommentDto updateComment = commentService.update(postId, id, createRequest, userName);
+
+        return Response.success(updateComment.response());
+    }
+
+
+
 }
