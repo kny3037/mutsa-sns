@@ -1,6 +1,7 @@
 package com.mutsasnskimnayeong.domain.entity;
 
 import com.mutsasnskimnayeong.domain.dto.comment.CommentDto;
+import com.mutsasnskimnayeong.domain.dto.comment.CommentUpdateResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,6 +42,17 @@ public class Comment extends BaseEntity{
 
     public void update(String comment) {
         this.comment = comment;
+    }
+
+    public CommentUpdateResponse updateResponse(Comment comment){
+        return CommentUpdateResponse.builder()
+                .id(comment.getId())
+                .comment(comment.getComment())
+                .userName(comment.getUser().getUserName())
+                .postId(comment.getPost().getId())
+                .createAt(comment.getCreatedAt())
+                .lastModifiedAt(comment.getLastModifiedAt())
+                .build();
     }
 
 
