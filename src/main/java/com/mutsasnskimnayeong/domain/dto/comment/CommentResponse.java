@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentCreateResponse {
+public class CommentResponse {
 
     private Integer id;
     private String comment;
@@ -20,8 +20,8 @@ public class CommentCreateResponse {
     private Integer postId;
     private LocalDateTime createAt;
 
-    public static CommentCreateResponse response(Comment comment){
-        return CommentCreateResponse.builder()
+    public static CommentResponse response(Comment comment){
+        return CommentResponse.builder()
                 .id(comment.getId())
                 .comment(comment.getComment())
                 .userName(comment.getUser().getUserName())

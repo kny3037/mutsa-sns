@@ -24,8 +24,8 @@ public class CommentDto {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     private LocalDateTime createAt;
 
-    public CommentCreateResponse response(){
-        return CommentCreateResponse.builder()
+    public CommentResponse response(){
+        return CommentResponse.builder()
                 .id(this.id)
                 .comment(this.comment)
                 .userName(user.getUserName())
