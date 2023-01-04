@@ -1,9 +1,6 @@
 package com.mutsasnskimnayeong.controller;
 
-import com.mutsasnskimnayeong.domain.dto.comment.CommentDeleteResponse;
-import com.mutsasnskimnayeong.domain.dto.comment.CommentRequest;
-import com.mutsasnskimnayeong.domain.dto.comment.CommentResponse;
-import com.mutsasnskimnayeong.domain.dto.comment.CommentDto;
+import com.mutsasnskimnayeong.domain.dto.comment.*;
 import com.mutsasnskimnayeong.domain.response.Response;
 import com.mutsasnskimnayeong.service.CommentService;
 import io.swagger.models.auth.In;
@@ -28,11 +25,11 @@ public class CommentController {
     }
 
     @PutMapping("/{postId}/comments/{id}")
-    public Response<CommentResponse> update(@PathVariable Integer postId, @PathVariable Integer id, @RequestBody CommentRequest createRequest, @ApiIgnore Authentication authentication){
+    public Response<CommentUpdateResponse> update(@PathVariable Integer postId, @PathVariable Integer id, @RequestBody CommentRequest createRequest, @ApiIgnore Authentication authentication){
         String userName = authentication.getName();
-        CommentDto updateComment = commentService.update(postId, id, createRequest, userName);
+        CommentUpdateResponse updateComment = commentService.update(postId, id, createRequest, userName);
 
-        return Response.success(updateComment.response());
+        return Response.success(updateComment);
     }
 
     @DeleteMapping("/{postsId}/comments/{id}")

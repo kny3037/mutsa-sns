@@ -2,6 +2,7 @@ package com.mutsasnskimnayeong.service;
 
 import com.mutsasnskimnayeong.domain.dto.comment.CommentRequest;
 import com.mutsasnskimnayeong.domain.dto.comment.CommentDto;
+import com.mutsasnskimnayeong.domain.dto.comment.CommentUpdateResponse;
 import com.mutsasnskimnayeong.domain.entity.Comment;
 import com.mutsasnskimnayeong.domain.entity.Post;
 import com.mutsasnskimnayeong.domain.entity.User;
@@ -36,7 +37,7 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentDto update(Integer postId, Integer id, CommentRequest createRequest, String userName){
+    public CommentUpdateResponse update(Integer postId, Integer id, CommentRequest createRequest, String userName){
         Post post = postRepository.findById(postId)
                 .orElseThrow(()->new AppException(ErrorCode.POST_NOT_FOUND,""));
 
@@ -54,7 +55,7 @@ public class CommentService {
         comment.update(createRequest.getComment());
         Comment commentUpdate = commentRepository.save(comment);
 
-        return commentUpdate.dto();
+        return commentUpdate.updateResponse(commentUpdate);
     }
 
     @Transactional
@@ -77,6 +78,7 @@ public class CommentService {
 
         return id;
     }
+
 
 
 }
