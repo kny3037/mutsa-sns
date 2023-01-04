@@ -4,10 +4,12 @@ import com.mutsasnskimnayeong.domain.entity.Comment;
 import com.mutsasnskimnayeong.domain.entity.Post;
 import com.mutsasnskimnayeong.domain.entity.User;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommentRequest {

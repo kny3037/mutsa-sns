@@ -2,6 +2,7 @@ package com.mutsasnskimnayeong.service;
 
 import com.mutsasnskimnayeong.domain.dto.comment.CommentRequest;
 import com.mutsasnskimnayeong.domain.dto.comment.CommentDto;
+import com.mutsasnskimnayeong.domain.dto.comment.CommentResponse;
 import com.mutsasnskimnayeong.domain.dto.comment.CommentUpdateResponse;
 import com.mutsasnskimnayeong.domain.entity.Comment;
 import com.mutsasnskimnayeong.domain.entity.Post;
@@ -12,6 +13,8 @@ import com.mutsasnskimnayeong.repository.CommentRepository;
 import com.mutsasnskimnayeong.repository.PostRepository;
 import com.mutsasnskimnayeong.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -79,6 +82,13 @@ public class CommentService {
         return id;
     }
 
+    public Page<Comment> list (Integer postId, Pageable pageable) {
+        Post post = postRepository.findById(postId).orElseThrow(() ->
+                new AppException(ErrorCode.POST_NOT_FOUND,""));
+
+        return commentRepository.findAllByPost(post,pageable);
+
+    }
 
 
 }
