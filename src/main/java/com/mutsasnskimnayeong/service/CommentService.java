@@ -57,6 +57,26 @@ public class CommentService {
         return commentUpdate.dto();
     }
 
+    @Transactional
+    public Integer delete (Integer postId, Integer id, String userName){
+
+        Post post = postRepository.findById(postId)
+                .orElseThrow(()-> new AppException(ErrorCode.POST_NOT_FOUND,""));
+
+        User user = userRepository.findByUserName(userName)
+                .orElseThrow(()-> new AppException(ErrorCode.USERNAME_NOT_FOUND,""));
+
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(()->new AppException(ErrorCode.COMMENT_NOT_FOUND,""));
+
+        if (user.getUserName() != comment.getUser().getUserName()){
+            throw new AppException(ErrorCode.INVALID_PERMISSION,"");
+        }
+
+        commentRepository.deleteById(id);
+
+        return id;
+    }
 
 
 }
