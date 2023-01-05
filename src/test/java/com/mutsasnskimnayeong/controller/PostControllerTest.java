@@ -14,6 +14,7 @@ import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -289,9 +290,35 @@ class PostControllerTest {
 
         assertEquals(Sort.by(DESC, "createdAt"), request.getSort());
 
+    }
 
+    @Test
+    @DisplayName("마이피드 조회 성공")
+    @WithMockUser
+    void my_feed_success() throws Exception {
 
+        when(postService.myFeed(any(),any())).thenReturn(Page.empty());
+
+        mockMvc.perform(get("/api/v1/posts/my")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andDo(print());
 
     }
+
+    @Test
+    @DisplayName("마이피드 조회 실패(1) - 로그인 하지 않은 경우")
+    @WithMockUser
+    void my_feed_fail1() throws Exception {
+
+        when(postService.myFeed(any(),any())).thenThrow(new AppException(ErrorCode.INVALID_PERMISSION,""));
+
+        mockMvc.perform(get("/api/v1/posts/my")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isUnauthorized())
+                .andDo(print());
+
+    }
+
 
 }
