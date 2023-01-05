@@ -17,6 +17,8 @@ public enum ErrorCode {
 
     COMMENT_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 댓글이 없습니다."),
 
+    ALREADY_LIKED(HttpStatus.ALREADY_REPORTED,"좋아요를 이미 눌렀습니다.")
+
     ;
 
     private HttpStatus status;
