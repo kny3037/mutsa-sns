@@ -7,7 +7,6 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -31,10 +30,10 @@ public class Like extends BaseEntity{
     private LocalDateTime deleteAt;
 
     public static Like of(User user, Post post){
-        Like like = new Like();
-        like.setUser(user);
-        like.setPost(post);
-        return like;
+        return Like.builder()
+                .user(user)
+                .post(post)
+                .build();
     }
 
 
