@@ -1,5 +1,6 @@
 package com.mutsasnskimnayeong.domain.entity;
 
+import com.mutsasnskimnayeong.domain.dto.post.PostDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,5 +26,16 @@ public class Post extends BaseEntity{
     public void update(String title, String body){
         this.title = title;
         this.body = body;
+    }
+
+    public PostDto postDto(){
+        return new PostDto(
+                this.id,
+                this.title,
+                this.body,
+                this.user.getUserName(),
+                this.getCreatedAt(),
+                this.getLastModifiedAt()
+        );
     }
 }

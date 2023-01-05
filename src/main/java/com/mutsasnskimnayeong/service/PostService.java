@@ -95,4 +95,12 @@ public class PostService {
         return postDtos;
     }
 
+    public Page<PostDto> myFeed(String userName, Pageable pageable){
+        User user = userRepository.findByUserName(userName)
+                .orElseThrow(()->new AppException(ErrorCode.USERNAME_NOT_FOUND,""));
+
+        Page<Post> posts = postRepository.findAllByUser(user, pageable);
+
+        return posts.map(post -> post.postDto());
+    }
 }
