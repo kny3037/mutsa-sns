@@ -1,14 +1,17 @@
 package com.mutsasnskimnayeong.service;
 
+import com.mutsasnskimnayeong.domain.AlarmType;
 import com.mutsasnskimnayeong.domain.dto.comment.CommentRequest;
 import com.mutsasnskimnayeong.domain.dto.comment.CommentDto;
 import com.mutsasnskimnayeong.domain.dto.comment.CommentResponse;
 import com.mutsasnskimnayeong.domain.dto.comment.CommentUpdateResponse;
+import com.mutsasnskimnayeong.domain.entity.Alarm;
 import com.mutsasnskimnayeong.domain.entity.Comment;
 import com.mutsasnskimnayeong.domain.entity.Post;
 import com.mutsasnskimnayeong.domain.entity.User;
 import com.mutsasnskimnayeong.exceptions.AppException;
 import com.mutsasnskimnayeong.exceptions.ErrorCode;
+import com.mutsasnskimnayeong.repository.AlarmRepository;
 import com.mutsasnskimnayeong.repository.CommentRepository;
 import com.mutsasnskimnayeong.repository.PostRepository;
 import com.mutsasnskimnayeong.repository.UserRepository;
@@ -26,6 +29,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
+    private final AlarmRepository alarmRepository;
 
     public CommentDto create(Integer postId, String userName, CommentRequest createRequest){
         Post post = postRepository.findById(postId)
@@ -35,6 +39,8 @@ public class CommentService {
                 .orElseThrow(()-> new AppException(ErrorCode.USERNAME_NOT_FOUND,""));
 
         Comment comment = commentRepository.save(createRequest.toEntity(user, post));
+
+        alarmRepository.save(Alarm.of(post.getUser(), AlarmType.NEW_COMMENT_ON_POST, user.getId(), post.getId()));
 
         return comment.dto();
     }
