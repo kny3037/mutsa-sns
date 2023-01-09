@@ -12,8 +12,8 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "\"likes\"")
-@SQLDelete(sql = "UPDATE \"likes\" SET delete_at = current_timestamp where id = ?")
+@Table(name = "likes")
+@SQLDelete(sql = "UPDATE likes SET deleted_at = current_timestamp WHERE id = ?")
 @Where(clause = "deleted_at is null")
 public class Like extends BaseEntity{
 
@@ -29,7 +29,7 @@ public class Like extends BaseEntity{
     @JoinColumn(name = "user_id")
     private User user;
 
-    private LocalDateTime deleteAt;
+    private LocalDateTime deletedAt;
 
     public static Like of(User user, Post post){
         return Like.builder()
