@@ -28,7 +28,7 @@ public class LikeService {
 
 
     @Transactional
-    public void like(Integer postId, String userName){
+    public String like(Integer postId, String userName){
 
         Post post = postRepository.findById(postId)
                 .orElseThrow(()-> new AppException(ErrorCode.POST_NOT_FOUND,""));
@@ -46,6 +46,7 @@ public class LikeService {
             //좋아요 안눌렀으면 save
             likeRepository.save(Like.of(user, post));
             alarmRepository.save(Alarm.of(post.getUser(), AlarmType.NEW_LIKE_ON_POST, user.getId(), post.getId()));
+            return "좋아요를 눌렀습니다.";
         }
     }
 
