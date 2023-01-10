@@ -36,6 +36,7 @@ import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(CommentController.class)
@@ -53,6 +54,7 @@ class CommentControllerTest {
 
     CommentRequest commentRequest;
     CommentUpdateResponse updateResponse;
+    Page<CommentResponse> commentResponses;
 
 
     @BeforeEach
@@ -275,10 +277,21 @@ class CommentControllerTest {
                 .andDo(print());
     }
 
-   /* @Test
+    @Test
     @DisplayName("댓글 목록 조회 성공")
     @WithMockUser
     void list_success() throws Exception {
-    }*/
+
+        when(commentService.list(any(),any())).thenReturn(Page.empty());
+
+        mockMvc.perform(get("/api/v1/posts/1/comments")
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.resultCode").value("SUCCESS"))
+                .andExpect(jsonPath("$.result.pageable").exists())
+                .andDo(print());
+
+    }
 
 }
