@@ -2,6 +2,8 @@ package com.mutsasnskimnayeong.domain.entity;
 
 import com.mutsasnskimnayeong.domain.dto.post.PostDto;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 
@@ -11,6 +13,12 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "post")
+
+//soft delete
+@SQLDelete(sql = "UPDATE post SET deleted_at = current_timestamp WHERE id = ?")
+@Where(clause = "deleted_at is null")
+
 public class Post extends BaseEntity{
 
     @Id
