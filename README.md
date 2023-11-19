@@ -162,6 +162,7 @@ Spring Security와 JWT를 사용하여 구현하며 로그인 성공 시 `token`
 
 ![2차 ERD 다이어그램](https://user-images.githubusercontent.com/90165539/211471379-9c843057-4045-4211-a503-0d39e56990c7.png)
 
+![KakaoTalk_20231113_100902619](https://github.com/kny3037/mutsa-sns/assets/90165539/036f1396-fb35-4996-975a-f3c36161ef86)
 
 
 <br>
